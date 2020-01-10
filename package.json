@@ -17,7 +17,6 @@
         "type": "git"
     },
     "dependencies": {
-        "@types/wordpress__blocks": "^6.4.4",
         "@types/wordpress__block-editor": "^2.2.5",
         "@types/wordpress__i18n": "^3.4.0",
         "react": "^16.12.0",
