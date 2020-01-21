@@ -1,47 +1,56 @@
 import * as React from 'react';
 import { BlockEditProps } from '@wordpress/blocks';
-import { BlockAttributes, ScaffoldPlan } from './block';
+import { BlockAttributes } from './block';
 import { InspectorControls } from '@wordpress/block-editor';
-import { PanelBody, Button, TextControl } from '@wordpress/components';
+import { PanelBody, SelectControl, Button } from '@wordpress/components';
 
-const edit: React.FC<BlockEditProps<BlockAttributes>> = ( { attributes: { features, plans }, setAttributes, className } ) => {
+const ResourceControl: React.FC<{value: string; onChange: ( value: string ) => void}> = ( { value, onChange } ) => (
+	<SelectControl<string>
+		label={ 'select' }
+		value={ value }
+		onChange={ onChange }
+		options={ [
+			{ value: '○', label: '○' },
+			{ value: '△', label: '△' },
+			{ value: '×', label: '×' },
+		] }
+	/>
+);
 
-
-
+const edit: React.FC<BlockEditProps<BlockAttributes>> = ( { attributes: { resourceTypes }, setAttributes, className } ) => {
+	const updateCell = ( { row, col, value }: {row: number; col: number; value: string} ) => {
+		const newResourceTypes = resourceTypes;
+		newResourceTypes[ row ][ col ].content = value;
+		setAttributes( { resourceTypes: newResourceTypes } );
+	};
 
 	return (
 		<>
 			<InspectorControls>
 				<PanelBody title={ 'Price Table Option' }>
-					{
-						features.map( ( feature, index ) =>
-							<TextControl
-								key={ index }
-								value={ feature }
-								onChange={ ( value ) => {
-									const newFeatures: string[] = features;
-									newFeatures[ index ] = value;
-									if ( ! value ) {
-									}
-									setAttributes( { features: newFeatures } );
-								} } />
-						)
-					}
 				</PanelBody>
 			</InspectorControls>
-			<div className={ 'price-table-block' }>
-				<div className={ 'price-table-block__plans' }>
-					{ plans.map( ( plan, i ) => (
-						<div key={ i } className={ 'price-table-block__plan' }>
-							<h3>{ plan.label }</h3>
-							<p>{ plan.price }</p>
-						</div>
-					) ) }
-					<Button isPrimary onClick={ () => {
-						setAttributes( { plans: [ ...plans, ScaffoldPlan ] } );
-					} }>Add</Button>
-				</div>
+			<div>
+				<table className={ 'schedule-table' }>
+					<tbody className={ 'schedule-table__body' }>
+						{ resourceTypes.map( ( resourceType, i ) => (
+							<tr key={ i } className={ 'schedule-table__resources' }>
+								{ resourceType.map( ( resource, j ) => (
+									<td key={ j } className={ 'schedule-table__resource' }>
+										<ResourceControl value="○" onChange={ ( value ) => {
+											updateCell( { row: i, col: j, value } );
+										} } />
+									</td>
+								) ) }
+							</tr>
+						) ) }
+					</tbody>
+				</table>
 			</div>
+
+			<Button onClick={ () => {
+				setAttributes( { resourceTypes: [ [ { content: '' } ], ...resourceTypes ] } );
+			} }>Add Row</Button>
 		</>
 	);
 };

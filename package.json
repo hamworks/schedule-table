@@ -1,5 +1,5 @@
 {
-    "name": "price-table-block",
+    "name": "schedule-table",
     "version": "0.0.1",
     "author": "Hiroshi Urabe <urabe@ham.works> (https://ham.works)",
     "license": "GPL-3.0+",
@@ -11,10 +11,10 @@
         "start": "tsc --watch & wp-scripts start",
         "build": "tsc && wp-scripts build",
         "postcss": "postcss ./src/[^_]*.css --dir ./build --verbose",
-        "lint-js": "wp-scripts lint-js --ext .js,.jsx,.ts,.tsx src/**"
+        "lint": "wp-scripts lint-js --ext .js,.jsx,.ts,.tsx src/**"
     },
     "repository": {
-        "url": "git@gitlab.com:hamworks/wordpress-plugins/price-table-block.git",
+        "url": "git@gitlab.com:hamworks/wordpress-plugins/schedule-table.git",
         "type": "git"
     },
     "dependencies": {

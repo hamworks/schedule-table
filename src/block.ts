@@ -1,20 +1,10 @@
-export type Plan = {
-	label: string
-	price: string
-	link: string
-	features: Features
+type Cell = {
+	alt: string;
+	url: string;
 }
 
-export const ScaffoldPlan: Plan = {
-	features: [],
-	label: 'Sample',
-	link: 'https://google.com',
-	price: '$100'
-}
-
-type Features = Object
+type Row = Cell[];
 
 export interface BlockAttributes {
-	features: string[];
-	plans: Plan[];
+	resourceTypes: Row[];
 }
