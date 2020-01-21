@@ -9,8 +9,10 @@ const save: React.FC<BlockSaveProps<BlockAttributes>> = ( { attributes: { resour
 			<table className={ 'schedule-table' }>
 				<tbody className={ 'schedule-table__body' }>
 					{ resourceTypes.map( ( resourceType, i ) => (
+
 						<tr key={ i } className={ 'schedule-table__resources' }>
-							{ resourceType.map( ( resource, j ) => (
+							{ console.log(resourceType) }
+							{ resourceType.cells.map( ( resource, j ) => (
 								<td key={ j } className={ 'schedule-table__resource' }></td>
 							) ) }
 						</tr>

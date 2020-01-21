@@ -6,6 +6,7 @@ import edit from './edit';
 import save from './save';
 
 registerBlockType<BlockAttributes>( 'schedule-table/schedule-table', {
+	name: 'schedule-table/schedule-table',
 	attributes: {
 		resourceTypes: {
 			type: 'array',

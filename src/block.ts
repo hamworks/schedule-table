@@ -1,10 +1,13 @@
-type Cell = {
-	alt: string;
-	url: string;
+import { AttributeSource } from '@wordpress/blocks';
+
+export type Cell = {
+	content: string;
 }
 
-type Row = Cell[];
+export type Row = {
+	cells: Cell[];
+};
 
-export interface BlockAttributes {
+export type BlockAttributes = {
 	resourceTypes: Row[];
 }
