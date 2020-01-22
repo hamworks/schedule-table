@@ -1,39 +1,51 @@
 import * as React from 'react';
 import { BlockEditProps } from '@wordpress/blocks';
-import { BlockAttributes, Cell, Row } from './block';
+import { BlockAttributes, Cell as CellType, Row } from './block';
 import { InspectorControls } from '@wordpress/block-editor';
-import { PanelBody, SelectControl, Button } from '@wordpress/components';
+import { PanelBody, Button, TextControl } from '@wordpress/components';
+import ResourceControl from './ResourceControl';
 
-const ResourceControl: React.FC<{value: string; onChange: ( value: string ) => void}> = ( { value, onChange } ) => (
-	<SelectControl<string>
-		label={ 'select' }
-		value={ value }
-		onChange={ onChange }
-		options={ [
-			{ value: '○', label: '○' },
-			{ value: '△', label: '△' },
-			{ value: '×', label: '×' },
-		] }
-	/>
-);
+class Cell implements CellType {
+	content: string;
+
+	constructor() {
+		this.content = '';
+	}
+}
 
 const createCells = ( count = 1 ): Cell[] => {
-	const cell = {
-		content: '',
-	};
-
-	return Array.from( Array( count ), () => cell );
+	return Array.from( Array( count ), () => new Cell() );
 };
 
-const createNewRow = (): Row => {
+const appendCell = ( cells: Cell[] ): Cell[] => {
+	return [ ...cells, new Cell() ];
+};
+
+const createNewRow = ( count = 1 ): Row => {
 	return {
-		cells: createCells( 1 ),
+		cells: createCells( count ),
 	};
 };
 
-const edit: React.FC<BlockEditProps<BlockAttributes>> = ( { attributes: { resourceTypes }, setAttributes, className } ) => {
-	const updateCell = ( { row, col, value }: {row: number; col: number; value: string} ) => {
-		const newResourceTypes = resourceTypes;
+const TableCell: React.FC<{head?: boolean} & React.HTMLAttributes<HTMLElement>> = ( { head, children, ...props } ) => {
+	if ( head ) {
+		return <th { ...props }>{ children }</th>;
+	}
+	return <td { ...props }>{ children }</td>;
+};
+
+const addCol = ( rows: Row[] ): Row[] => {
+	return rows.map( ( row ) => {
+		return {
+			...row,
+			cells: appendCell( row.cells ),
+		};
+	} );
+};
+
+const edit: React.FC<BlockEditProps<BlockAttributes>> = ( { attributes: { resourceTypes }, setAttributes } ) => {
+	const updateCell = ( { row, col, value }: {row: number; col: number; value: string} ): void => {
+		const newResourceTypes = [ ...resourceTypes ];
 		newResourceTypes[ row ].cells[ col ].content = value;
 		setAttributes( { resourceTypes: newResourceTypes } );
 	};
@@ -41,20 +53,28 @@ const edit: React.FC<BlockEditProps<BlockAttributes>> = ( { attributes: { resour
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ 'Price Table Option' }>
+				<PanelBody title={ 'Price Table Option' } >
+					<p>Options.</p>
 				</PanelBody>
 			</InspectorControls>
 			<div>
 				<table className={ 'schedule-table' }>
 					<tbody className={ 'schedule-table__body' }>
-						{ resourceTypes.map( ( resourceType, i ) => (
-							<tr key={ i } className={ 'schedule-table__resources' }>
-								{ resourceType.cells.map( ( resource, j ) => (
-									<td key={ j } className={ 'schedule-table__resource' }>
-										<ResourceControl value="○" onChange={ ( value ) => {
-											updateCell( { row: i, col: j, value } );
-										} } />
-									</td>
+						{ resourceTypes.map( ( { cells }, row ) => (
+							<tr key={ row } className={ 'schedule-table__resources' }>
+								{ cells.map( ( { content }, col ) => (
+									<TableCell key={ col } head={ ! ( col && row ) } className={ 'schedule-table__resource' }>
+										{
+											( col && row ) ?
+												<ResourceControl value={ content } onChange={ ( value ): void => {
+													updateCell( { row, col, value } );
+												} } /> :
+												<TextControl value={ content } onChange={ ( value ): void => {
+													updateCell( { row, col, value } );
+												} } />
+										}
+
+									</TableCell>
 								) ) }
 							</tr>
 						) ) }
@@ -62,9 +82,14 @@ const edit: React.FC<BlockEditProps<BlockAttributes>> = ( { attributes: { resour
 				</table>
 			</div>
 
-			<Button onClick={ () => {
-				setAttributes( { resourceTypes: [ ...resourceTypes, createNewRow() ] } );
+			<Button isPrimary={ true } onClick={ (): void => {
+				const colCount = resourceTypes[ 0 ]?.cells.length || 1;
+				setAttributes( { resourceTypes: [ ...resourceTypes, createNewRow( colCount ) ] } );
 			} }>Add Row</Button>
+
+			<Button isPrimary={ true } onClick={ (): void => {
+				setAttributes( { resourceTypes: addCol( resourceTypes ) } );
+			} }>Add Col</Button>
 		</>
 	);
 };
