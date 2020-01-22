@@ -1,16 +1,16 @@
-import * as React from 'react';
 import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
 import { BlockAttributes } from './block';
 import edit from './edit';
 import save from './save';
+import { createInitialData } from './table';
 
 registerBlockType<BlockAttributes>( 'schedule-table/schedule-table', {
 	name: 'schedule-table/schedule-table',
 	attributes: {
 		resourceTypes: {
 			type: 'array',
-			default: [],
+			default: createInitialData( 4, 4 ),
 			source: 'query',
 			selector: 'tbody tr',
 			query: {

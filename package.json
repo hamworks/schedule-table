@@ -11,7 +11,7 @@
         "start": "tsc --watch & wp-scripts start",
         "build": "tsc && wp-scripts build",
         "postcss": "postcss ./src/[^_]*.css --dir ./build --verbose",
-        "lint": "wp-scripts lint-js --ext .js,.jsx,.ts,.tsx src/**"
+        "lint": "wp-scripts lint-js --ext .js,.jsx,.ts,.tsx src/ --ignore-pattern 'src/@types/'"
     },
     "repository": {
         "url": "git@gitlab.com:hamworks/wordpress-plugins/schedule-table.git",

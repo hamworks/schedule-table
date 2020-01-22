@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { BlockSaveProps } from '@wordpress/blocks';
 import { BlockAttributes } from './block';
+import { ResouceIcon } from './ResourceControl';
 
 const save: React.FC<BlockSaveProps<BlockAttributes>> = ( { attributes: { resourceTypes } } ) => {
 	return (
@@ -12,7 +13,7 @@ const save: React.FC<BlockSaveProps<BlockAttributes>> = ( { attributes: { resour
 						<tr key={ row } className={ 'schedule-table__resources' }>
 							{ cells.map( ( { content }, col ) => (
 								<td key={ col } className={ 'schedule-table__resource' }>
-									{ content }
+									<ResouceIcon value={ content } />
 								</td>
 							) ) }
 						</tr>
