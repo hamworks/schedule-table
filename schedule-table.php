@@ -1,8 +1,14 @@
 <?php
 /**
  * Plugin Name: Schedule Table.
- *
- * @package schedule-table
+ * Plugin URI:      https://github.com/team-hamworks/schedule-table
+ * Description:     schedule-table.
+ * Author:          hamworks
+ * Author URI:      https://ham.works
+ * Text Domain:     schedule-table
+ * Domain Path:     /languages
+ * Version: 0.1.2
+ * @package         Schedule_Table
  */
 
 namespace  HAMWORKS\Schedule_Table;

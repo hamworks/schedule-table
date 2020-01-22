@@ -1,6 +1,6 @@
 {
     "name": "schedule-table",
-    "version": "0.0.1",
+    "version": "0.0.0",
     "author": "Hiroshi Urabe <urabe@ham.works> (https://ham.works)",
     "license": "GPL-3.0+",
     "main": "build/index.js",
@@ -42,5 +42,20 @@
         "plugin-dir": "custom-block-with-ts",
         "plugin-name": "custom-block-with-ts",
         "welcome-build-command": "npm run start"
+    },
+    "release-it": {
+        "hooks": {
+            "before:bump": "npm run build",
+            "after:bump": "bash ./bin/create-release.sh ${version}"
+        },
+        "github": {
+            "release": true,
+            "assets": [
+                "schedule-table.zip"
+            ]
+        },
+        "npm": {
+            "publish": false
+        }
     }
 }
