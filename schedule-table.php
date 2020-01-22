@@ -17,7 +17,7 @@ defined( 'ABSPATH' ) || exit;
 
 function init() {
 	// automatically load dependencies and version
-	$asset_file = include( plugin_dir_path( __FILE__ ) . 'build/index.asset.php' );
+	$asset_file = include( dirname( __FILE__ ) . '/build/index.asset.php' );
 	wp_register_script(
 		'schedule-table',
 		plugins_url( 'build/index.js', __FILE__ ),
