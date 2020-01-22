@@ -1,8 +1,8 @@
 export class Cell {
 	content: string;
 
-	constructor() {
-		this.content = '';
+	constructor( content = '○' ) {
+		this.content = content;
 	}
 }
 

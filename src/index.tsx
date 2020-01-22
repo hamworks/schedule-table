@@ -12,7 +12,7 @@ registerBlockType<BlockAttributes>( 'schedule-table/schedule-table', {
 			type: 'array',
 			default: createInitialData( 4, 4 ),
 			source: 'query',
-			selector: 'tbody tr',
+			selector: 'table tr',
 			query: {
 				cells: {
 					type: 'array',

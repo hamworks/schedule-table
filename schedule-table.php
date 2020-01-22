@@ -28,6 +28,7 @@ function init() {
 	register_block_type( 'schedule-table/schedule-table', array(
 		'editor_script' => 'schedule-table',
 		'editor_style'  => 'schedule-table',
+		'style'  => 'schedule-table',
 	) );
 }
 

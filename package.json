@@ -8,8 +8,8 @@
         "tsc": "tsc",
         "env": "wp-scripts env",
         "test": "wp-scripts test-unit-js --config tests/js/jest.config.json",
-        "start": "tsc --watch & wp-scripts start",
-        "build": "tsc && wp-scripts build",
+        "start": "npm run postcss -- -w & tsc --watch & wp-scripts start",
+        "build": "npm run postcss && tsc && wp-scripts build",
         "postcss": "postcss ./src/[^_]*.css --dir ./build --verbose",
         "lint": "wp-scripts lint-js --ext .js,.jsx,.ts,.tsx src/ --ignore-pattern 'src/@types/'"
     },
@@ -19,6 +19,7 @@
     },
     "dependencies": {
         "@babel/plugin-proposal-optional-chaining": "^7.8.3",
+        "@types/lodash": "^4.14.149",
         "@types/wordpress__block-editor": "^2.2.5",
         "@types/wordpress__i18n": "^3.4.0",
         "react": "^16.12.0",
