@@ -33,7 +33,7 @@ registerBlockType<BlockAttributes>( 'schedule-table/schedule-table', {
 					type: 'array',
 					default: [],
 					source: 'query',
-					selector: 'td,th',
+					selector: 'td span,th span',
 					query: {
 						content: {
 							type: 'string',

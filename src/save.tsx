@@ -14,7 +14,7 @@ const save: React.FC<BlockSaveProps<BlockAttributes>> = ( { attributes: { resour
 						<tr key={ row } className={ 'schedule-table__resources' }>
 							{ cells.map( ( { content }, col ) => (
 								<TableCell key={ col } head={ true } className={ 'schedule-table__resource' }>
-									{ content }
+									<span>{ content }</span>
 								</TableCell>
 							) ) }
 						</tr>
@@ -26,7 +26,7 @@ const save: React.FC<BlockSaveProps<BlockAttributes>> = ( { attributes: { resour
 							{ cells.map( ( { content }, col ) => (
 								<TableCell key={ col } head={ ! ( col ) } className={ 'schedule-table__resource' }>
 									{
-										( col ) ? <ResouceIcon value={ content } /> : content
+										( col ) ? <ResouceIcon value={ content } /> : <span>{ content }</span>
 									}
 								</TableCell>
 							) ) }
@@ -39,3 +39,4 @@ const save: React.FC<BlockSaveProps<BlockAttributes>> = ( { attributes: { resour
 };
 
 export default save;
+
