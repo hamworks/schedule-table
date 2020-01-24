@@ -7,7 +7,7 @@
  * Author URI:      https://ham.works
  * Text Domain:     schedule-table
  * Domain Path:     /languages
- * Version: 0.0.3
+ * Version: 0.0.4
  * @package         Schedule_Table
  */
 
