@@ -26,7 +26,7 @@ const save: React.FC<BlockSaveProps<BlockAttributes>> = ( { attributes: { resour
 							{ cells.map( ( { content }, col ) => (
 								<TableCell key={ col } head={ ! ( col ) } className={ 'schedule-table__resource' }>
 									{
-										( col && row ) ? <ResouceIcon value={ content } /> : content
+										( col ) ? <ResouceIcon value={ content } /> : content
 									}
 								</TableCell>
 							) ) }
