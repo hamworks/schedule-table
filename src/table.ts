@@ -1,3 +1,4 @@
+import { range } from 'lodash';
 export class Cell {
 	content: string;
 
@@ -10,18 +11,18 @@ export type Row = {
 	cells: Cell[];
 };
 
-const createCells = ( count = 1 ): Cell[] => {
-	return Array.from( Array( count ), () => new Cell() );
+const createCells = ( contents = [ '' ] ): Cell[] => {
+	return contents.map( ( content ) => new Cell( content ) );
 };
 
-export const createRow = ( count = 1 ): Row => {
+export const createRow = ( contents = [ '' ] ): Row => {
 	return {
-		cells: createCells( count ),
+		cells: createCells( contents ),
 	};
 };
 
 export const appendCell = ( cells: Cell[] ): Cell[] => {
-	return [ ...cells, new Cell() ];
+	return [ ...cells, ...createCells() ];
 };
 
 export const appendCol = ( rows: Row[] ): Row[] => {
@@ -35,9 +36,9 @@ export const appendCol = ( rows: Row[] ): Row[] => {
 
 export const appendRow = ( rows: Row[] ): Row[] => {
 	const colCount = rows[ 0 ]?.cells.length || 1;
-	return [ ...rows, createRow( colCount ) ];
+	return [ ...rows, createRow( range( colCount ).map( () => '' ) ) ];
 };
 
-export const createInitialData = ( rows: number, col: number ): Row[] => {
-	return Array.from( Array( rows ), () => createRow( col ) );
+export const createInitialData = ( rows = [ [ '' ] ] ): Row[] => {
+	return rows.map( ( cells ) => createRow( cells ) );
 };

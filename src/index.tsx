@@ -5,12 +5,27 @@ import edit from './edit';
 import save from './save';
 import { createInitialData } from './table';
 
+const getYear = () => {
+	const now = new Date();
+	return now.getFullYear();
+};
+
+const getMonth = () => {
+	const now = new Date();
+	return now.getMonth() + 1;
+};
+
 registerBlockType<BlockAttributes>( 'schedule-table/schedule-table', {
 	name: 'schedule-table/schedule-table',
 	attributes: {
 		resourceTypes: {
 			type: 'array',
-			default: createInitialData( 4, 4 ),
+			default: createInitialData( [
+				[ '', `${ getYear() }年${ getMonth() }月`, `${ getYear() }年${ getMonth() + 1 }月`, `${ getYear() }年${ getMonth() + 2 }月` ],
+				[ 'デザイン', '○', '○', '○' ],
+				[ 'コーディング', '○', '○', '○' ],
+				[ 'CMS', '○', '○', '○' ],
+			] ),
 			source: 'query',
 			selector: 'table tr',
 			query: {
