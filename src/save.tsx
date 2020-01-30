@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { BlockSaveProps } from '@wordpress/blocks';
 import { BlockAttributes } from './block';
-import { ResouceIcon, ResourceControl } from './ResourceControl';
-import { TableCell } from './components';
-import { slice } from 'lodash';
+import ResourceIcon from './components/ResourceIcon';
+import TableCell from './components/TableCell';
 
 const save: React.FC<BlockSaveProps<BlockAttributes>> = ( { attributes: { resourceTypes } } ) => {
 	return (
@@ -26,7 +25,7 @@ const save: React.FC<BlockSaveProps<BlockAttributes>> = ( { attributes: { resour
 							{ cells.map( ( { content }, col ) => (
 								<TableCell key={ col } head={ ! ( col ) } className={ 'schedule-table__resource' }>
 									{
-										( col ) ? <ResouceIcon value={ content } /> : <span>{ content }</span>
+										( col ) ? <ResourceIcon value={ content } /> : <span>{ content }</span>
 									}
 								</TableCell>
 							) ) }

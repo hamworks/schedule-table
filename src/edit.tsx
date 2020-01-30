@@ -3,8 +3,8 @@ import { BlockEditProps } from '@wordpress/blocks';
 import { BlockAttributes } from './block';
 import { InspectorControls } from '@wordpress/block-editor';
 import { Button, ButtonGroup, PanelBody, TextControl } from '@wordpress/components';
-import { ResourceControl } from './ResourceControl';
-import { TableCell } from './components';
+import ResourceControl from './components/ResourceControl';
+import TableCell from './components/TableCell';
 import { appendCol, appendRow } from './table';
 
 const edit: React.FC<BlockEditProps<BlockAttributes>> = ( { attributes: { resourceTypes }, setAttributes } ) => {

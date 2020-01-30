@@ -8,7 +8,7 @@ module.exports = {
 	},
 	resolve: {
 		...defaultConfig.resolve,
-		extensions: ['.ts', '.tsx', '.js']
+		extensions: [ '.ts', '.tsx', '.js' ],
 	},
 	module: {
 		...defaultConfig.module,
